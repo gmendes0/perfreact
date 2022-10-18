@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { SearchResults } from "./components/SearchResults";
 
 type TResults = Array<{
@@ -25,6 +25,23 @@ const Home: NextPage = () => {
     setResults(data);
   }
 
+  /**
+   * Toda vez que o componente for renderizado, todas as functions serão recriadas do 0 também, ou seja
+   * ocuparão um novo espaço na memória.
+   *
+   * Como essa function está sendo passada nas props do SearchResults, e ela é uma função referencialmente diferente
+   * da antiga, o React considerará que as props do SearchResults mudaram, e fará com que o componente seja renderizado
+   * novamente com as props atualizadas.
+   */
+
+  // async function addToWishList(id: number) {
+  //   console.log(`Added to wish list: ${id}`);
+  // }
+
+  const addToWishList = useCallback(async (id: number) => {
+    console.log(`Added to wish list: ${id}`);
+  }, []);
+
   return (
     <>
       <Head>
@@ -43,7 +60,7 @@ const Home: NextPage = () => {
           <button type="submit">Buscar</button>
         </form>
 
-        <SearchResults results={results} />
+        <SearchResults results={results} onAddToWishList={addToWishList} />
       </div>
     </>
   );

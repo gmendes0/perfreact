@@ -56,4 +56,11 @@ React.memo(Component, (prevProps, nextProps) => {
 - Igualdade referencial (quando repassamos aquela info para um componente filho)
 
   Pode ser utilizado para evitar que uma variavel ocupe um novo local na memória quando ela foi criada para ser passada para um componente filho.
-  Se o calculo nao é pesado, mas mesmo assim a info é repassada para os componentes filho, vale a pena usar o useMemo, pois evita que a info seja criada do zero e que o algoritimo de reconciliação acuse que as variáveis são diferentes e atualize desnecessáriamente.
+  Se o calculo nao é pesado, mas mesmo assim a info é repassada para os componentes filho, vale a pena usar o `useMemo`, pois evita que a info seja criada do zero e que o algoritimo de reconciliação acuse que as variáveis são diferentes e atualize desnecessáriamente.
+
+### useCallback
+
+O `useCallback` é parecido com o `useMemo`, mas ele é utilizado quando queremos memorizar uma função e não o seu resultado.
+Sempre que um componente renderiza, todas as funcs dentro dele são recriadas, ou seja, elas ocupam um novo espaço na memória, portanto, se algum componente filho recebe uma func do componente pai nas props, quando o componente pai renderizar, a func vai ser recriada e o React entenderá que a prop que recebe a func foi atualizada, fazendo com que o componente filho seja renderizado novamente por essa mudança. O `useCallback` serve para resolver essa igualdade referencial da função.
+
+- Quando criamos uma função que será repassada para os componentes filhos, é importante utilizar o `useCallback` (isso também vale para funções de contextos).

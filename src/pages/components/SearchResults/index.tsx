@@ -7,9 +7,13 @@ interface SearchResultsProps {
     price: number;
     title: string;
   }>;
+  onAddToWishList: (id: number) => Promise<void>;
 }
 
-export function SearchResults({ results }: SearchResultsProps): JSX.Element {
+export function SearchResults({
+  results,
+  onAddToWishList,
+}: SearchResultsProps): JSX.Element {
   /**
    * O use memo evita que esse calculo seja feito toda vez que o componente for renderizado,
    * agora ele só executa quando o results mudar.
@@ -24,7 +28,11 @@ export function SearchResults({ results }: SearchResultsProps): JSX.Element {
       <p>{totalPrice}</p>
 
       {results.map((product) => (
-        <ProductItem product={product} />
+        <ProductItem
+          key={product.id}
+          product={product}
+          onAddToWishList={onAddToWishList}
+        />
       ))}
     </div>
   );
