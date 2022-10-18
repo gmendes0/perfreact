@@ -45,3 +45,15 @@ React.memo(Component, (prevProps, nextProps) => {
 - Medium to Big size
 
   Dependendo da complexidade do componente, em componentes muito pequenos por exemplo, pode ser que o custo para fazer a comparação do React.memo seja bem parecido com o custo do render gerar uma nova versão do componente e comparar com a antiga, portanto, é melhor deixar o render fazer o trabalho.
+
+## useMemo
+
+- Calculos pesados
+
+  Usado para evitar que algo que use muito processamento seja executado toda vez que o componente renderizar.
+  O useMemo possui um custo para fazer a comparação do array de dependencias, portanto, em casos em que o calculo a ser fazer é simples, vale mais a pena não utiliza-lo.
+
+- Igualdade referencial (quando repassamos aquela info para um componente filho)
+
+  Pode ser utilizado para evitar que uma variavel ocupe um novo local na memória quando ela foi criada para ser passada para um componente filho.
+  Se o calculo nao é pesado, mas mesmo assim a info é repassada para os componentes filho, vale a pena usar o useMemo, pois evita que a info seja criada do zero e que o algoritimo de reconciliação acuse que as variáveis são diferentes e atualize desnecessáriamente.
