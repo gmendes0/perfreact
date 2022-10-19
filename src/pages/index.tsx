@@ -3,15 +3,29 @@ import Head from "next/head";
 import { FormEvent, useCallback, useState } from "react";
 import { SearchResults } from "./components/SearchResults";
 
-type TResults = Array<{
+type TResults = {
+  products: TProductsResponse;
+  totalPrice: number;
+};
+
+type TProductsResponse = Array<{
   id: number;
   price: number;
   title: string;
+  formatedPrice: string;
 }>;
 
 const Home: NextPage = () => {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState<TResults>([]);
+  const [results, setResults] = useState<TResults>({
+    totalPrice: 0,
+    products: [],
+  });
+
+  const formater = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,9 +34,19 @@ const Home: NextPage = () => {
 
     const response = await fetch(`http://localhost:3333/products?q=${search}`);
 
-    const data: TResults = await response.json();
+    const data: TProductsResponse = await response.json();
 
-    setResults(data);
+    const totalPrice = data.reduce((acc, product) => acc + product.price, 0);
+
+    const products = data.map((product) => ({
+      ...product,
+      formatedPrice: formater.format(product.price),
+    }));
+
+    setResults({
+      products,
+      totalPrice,
+    });
   }
 
   /**

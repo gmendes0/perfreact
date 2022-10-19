@@ -64,3 +64,7 @@ O `useCallback` é parecido com o `useMemo`, mas ele é utilizado quando queremo
 Sempre que um componente renderiza, todas as funcs dentro dele são recriadas, ou seja, elas ocupam um novo espaço na memória, portanto, se algum componente filho recebe uma func do componente pai nas props, quando o componente pai renderizar, a func vai ser recriada e o React entenderá que a prop que recebe a func foi atualizada, fazendo com que o componente filho seja renderizado novamente por essa mudança. O `useCallback` serve para resolver essa igualdade referencial da função.
 
 - Quando criamos uma função que será repassada para os componentes filhos, é importante utilizar o `useCallback` (isso também vale para funções de contextos).
+
+### Calculos e Formatações
+
+Não devemos fazer calculos/formatações de retornos de APIs por exemplo dentro da re-render dos componentes, pois sempre que o componente renderizar, esse calculo será refeito, ou caso esteja utilizando `useMemo`, a comparação será feita. Como em teoria esses calculos/formatações só deverão rodar quando a API retornar algum valor, é interessante colocar calculos/formatações abaixo da chamada a API, assim, não é necessário fazer verifições de dependencias.
