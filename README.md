@@ -68,3 +68,7 @@ Sempre que um componente renderiza, todas as funcs dentro dele são recriadas, o
 ### Calculos e Formatações
 
 Não devemos fazer calculos/formatações de retornos de APIs por exemplo dentro da re-render dos componentes, pois sempre que o componente renderizar, esse calculo será refeito, ou caso esteja utilizando `useMemo`, a comparação será feita. Como em teoria esses calculos/formatações só deverão rodar quando a API retornar algum valor, é interessante colocar calculos/formatações abaixo da chamada a API, assim, não é necessário fazer verifições de dependencias.
+
+### Code Splitting
+
+Importar algo somente no momento em que for utilizar para reduzir o bundle inicial.
