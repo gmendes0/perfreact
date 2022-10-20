@@ -63,22 +63,22 @@ export function SearchResults({
         )}
       </AutoSizer> */}
 
-      <List
+      {/* <List
         height={300}
         rowHeight={20}
         width={900}
         overscanRowCount={10}
         rowCount={results.products.length}
         rowRenderer={rowRenderer}
-      />
+      /> */}
 
-      {/* {results.products.map((product) => (
+      {results.products.map((product) => (
         <ProductItem
           key={product.id}
           product={product}
           onAddToWishList={onAddToWishList}
         />
-      ))} */}
+      ))}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FormEvent, useCallback, useState } from "react";
-import { SearchResults } from "./components/SearchResults";
+import { SearchResults } from "../components/SearchResults";
 
 type TResults = {
   products: TProductsResponse;
