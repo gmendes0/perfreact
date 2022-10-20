@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ProductItem } from "../ProductItem";
+import { List, AutoSizer, ListRowRenderer } from "react-virtualized";
 
 interface SearchResultsProps {
   results: {
@@ -33,17 +34,51 @@ export function SearchResults({
   //   [results]
   // );
 
+  const rowRenderer: ListRowRenderer = ({ key, index, style }) => {
+    return (
+      <div key={key} style={style}>
+        <ProductItem
+          product={results.products[index]}
+          onAddToWishList={onAddToWishList}
+        />
+      </div>
+    );
+  };
+
   return (
     <div>
       <p>{results.totalPrice}</p>
 
-      {results.products.map((product) => (
+      {/* <List width={AutoSizer} /> */}
+
+      {/* <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            width={width}
+            rowCount={results.products.length}
+            rowHeight={20}
+            rowRenderer={rowRenderer}
+          />
+        )}
+      </AutoSizer> */}
+
+      <List
+        height={300}
+        rowHeight={20}
+        width={900}
+        overscanRowCount={10}
+        rowCount={results.products.length}
+        rowRenderer={rowRenderer}
+      />
+
+      {/* {results.products.map((product) => (
         <ProductItem
           key={product.id}
           product={product}
           onAddToWishList={onAddToWishList}
         />
-      ))}
+      ))} */}
     </div>
   );
 }
