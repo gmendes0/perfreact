@@ -77,3 +77,7 @@ Importar algo somente no momento em que for utilizar para reduzir o bundle inici
 
 Quando uma tela possui uma lista por exemplo de muitos itens, acaba sendo um pouco pesado exibir tudo isso, e as vezes, o usuário nem irá ver todo esse conteúdo gerado. Para contornar isso, podemos fazer com que a lista só carregue os itens quando o usuário dê scroll. Para isso utilizamos a virtualização.
 Um exemplo de lib é a react-virtualized.
+
+### Bundle analyzer
+
+É usado para ver qual o tamanho do bundle e o quanto cada lib está ocupando.
